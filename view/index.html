@@ -15,8 +15,8 @@
     rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
   />
-  <link rel="stylesheet" href="./assets/css/theme.css" />
-  <link rel="stylesheet" href="./assets/css/mrt/mrt.css" />
+  <link rel="stylesheet" href="../public/assets/css/theme.css" />
+  <link rel="stylesheet" href="../public/assets/css/mrt/mrt.css" />
 </head>
 
 <body dir="rtl">
@@ -151,12 +151,12 @@
                                   </a>
                                   <a href="#!" class="dropdown-item">
                                     <i class="fa fa-phone"></i>
-                                    <span>Support</span>
+                                    <span>پشتیبانی</span>
                                   </a>
                                   <div class="dropdown-divider"></div>
                                   <a href="#!" class="dropdown-item">
                                     <i class="fa fa-sign-out-alt"></i>
-                                    <span>Logout</span>
+                                    <span>خارج شدن</span>
                                   </a>
                                 </div>
                               </li>
@@ -165,7 +165,83 @@
                           <div
                             class="col-md-4 d-flex align-items-center justify-content-end"
                           >
-                            <i class="fa-solid fa-plus"></i>
+                            <i
+                              class="fa-solid fa-plus"
+                              data-toggle="modal"
+                              data-target="#exampleModal"
+                            ></i>
+                            <div
+                              class="modal fade"
+                              id="exampleModal"
+                              tabindex="-1"
+                              role="dialog"
+                              aria-labelledby="exampleModalLabel"
+                              aria-hidden="true"
+                            >
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5
+                                      class="modal-title"
+                                      id="exampleModalLabel"
+                                    >
+                                      افزودن کاربر جدید
+                                    </h5>
+                                    <button
+                                      type="button"
+                                      class="close custom-close"
+                                      data-dismiss="modal"
+                                      aria-label="Close"
+                                    >
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form action="" method="post">
+                                      <div class="form-group custom-form-group">
+                                        <label
+                                          for="recipient-name"
+                                          class="col-form-label"
+                                          >موبایل</label
+                                        >
+                                        <input
+                                          type="text"
+                                          class="form-control custom-form-contorl"
+                                          id="recipient-name"
+                                        />
+                                      </div>
+                                      <div class="form-group custom-form-group">
+                                        <label
+                                          for="recipient-name"
+                                          class="col-form-label"
+                                          >نام و نام خانوادگی</label
+                                        >
+                                        <input
+                                          type="text"
+                                          class="form-control custom-form-contorl"
+                                          id="recipient-name"
+                                        />
+                                      </div>
+                                    </form>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button
+                                      type="button"
+                                      class="btn btn-secondary"
+                                      data-dismiss="modal"
+                                    >
+                                      بستن
+                                    </button>
+                                    <button
+                                      type="button"
+                                      class="btn btn-primary"
+                                    >
+                                      افزودن کاربر
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                             <i class="fa-solid fa-arrows-rotate mr-2"></i>
                           </div>
                         </div>
