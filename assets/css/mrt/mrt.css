@@ -160,3 +160,12 @@
 .fa-plus,.fa-arrows-rotate:hover{
   cursor: pointer;
 }
+.custom-close{
+  margin-left: 0!important;
+}
+.custom-form-group{
+  text-align:right
+}
+.custom-form-contorl{
+  border-radius:8px;
+}
