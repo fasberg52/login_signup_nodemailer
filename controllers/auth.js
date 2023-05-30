@@ -2,16 +2,23 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 
 exports.getLogin = (req, res) => {
-  let message = req.flash("error");
-  if (message.length > 0) {
-    message = message[0];
+  let messageEmail = req.flash("error");
+  if (messageEmail.length > 0) {
+    messageEmail = messageEmail[0];
   } else {
-    message = null;
+    messageEmail = null;
+  }
+  let messagePass = req.flash("errorPass");
+  if (messagePass.length > 0) {
+    messagePass = messagePass[0];
+  } else {
+    messagePass = null;
   }
   res.render("auth/login", {
     path: "/login",
     pageTitle: "ورود",
-    errorMessage: message,
+    errorMessage: messageEmail,
+    errorPassword: messagePass,
   });
 };
 
@@ -19,9 +26,9 @@ exports.postLogin = (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  User.findOne({ email,password }).then((user) => {
+  User.findOne({ email: email }).then((user) => {
     if (!user) {
-      req.flash("error", "ایمیل یا پسورد اشتباه است");
+      req.flash("error", "ایمیل اشتباه است");
       return res.redirect("/login");
     }
     bcrypt.compare(password, user.password).then((isMatch) => {
@@ -32,6 +39,9 @@ exports.postLogin = (req, res) => {
           console.log(err);
           res.redirect("/");
         });
+      } else {
+        req.flash("errorPass", "پسورد شما اشتباه است");
+        return res.redirect("/login");
       }
     });
   });

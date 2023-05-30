@@ -62,6 +62,13 @@
               <%= errorMessage %>
             </div>
             <% } %>
+            <% if(errorPassword) {%>
+                <div class="alert alert-danger custom-alert text-center">
+                  <%= errorPassword %>
+                </div>
+                <% } %>
+
+            
             <div>
               <div class="wrap-input100 validate-input" id="user-email">
                 <input
