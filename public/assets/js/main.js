@@ -2,7 +2,7 @@
   "use strict";
 
   /*==================================================================
-    [ Validate ]*/
+     [ Validate ]*/
   var input = $(".validate-input .input100");
 
   $(".validate-form").on("submit", function () {
@@ -25,13 +25,13 @@
   });
 
   function validate(input) {
-    if ($(input).attr("type") == "tel" || $(input).attr("name") == "tel") {
+    if ($(input).attr("type") == "email" || $(input).attr("name") == "email") {
       if (
         $(input)
-          .val()
-          .trim()
+          
+         
           .match(
-            /(0|\+98)?([ ]|-|[()]){0,2}9[1|2|3|4]([ ]|-|[()]){0,2}(?:[0-9]([ ]|-|[()]){0,2}){8}/gi
+            /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
           ) == null
       ) {
         return false;
@@ -54,11 +54,4 @@
 
     $(thisAlert).removeClass("alert-validate");
   }
-
-  $("#register-user").on("click", function (e) {
-    e.preventDefault();
-    
-    $("#user-phone-number").hide();
-    $("#varification-code").show();
-  });
 })(jQuery);

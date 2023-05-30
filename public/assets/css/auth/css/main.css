@@ -8,13 +8,13 @@
   font-family: estedad;
   font-style: normal;
   font-weight: 900;
-  src: url('../fonts/IRANSANS/Estedad-Bold.woff') format('woff');
+  src: url('/public/assets/fonts/Estedad-Bold.woff') format('woff');
 }
 @font-face {
   font-family: estedad;
   font-style: normal;
   font-weight: 900;
-  src: url('../fonts/IRANSANS/Estedad-Regular.woff') format('woff');
+  src: url('/public/assets/fonts/Estedad-Regular.woff') format('woff');
 }
 @font-face {
   font-family: iransans;
@@ -366,6 +366,9 @@ iframe {
 
 .login100-form-btn:hover {
   background: #333333;
+}
+.custom-alert{
+  border-radius:100px!important
 }
 
 
