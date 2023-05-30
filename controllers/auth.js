@@ -2,23 +2,18 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 
 exports.getLogin = (req, res) => {
-  let messageEmail = req.flash("error");
-  if (messageEmail.length > 0) {
-    messageEmail = messageEmail[0];
+  let message = req.flash("error");
+  if (message.length > 0) {
+    message = message[0];
   } else {
-    messageEmail = null;
+    message = null;
   }
-  let messagePass = req.flash("errorPass");
-  if (messagePass.length > 0) {
-    messagePass = messagePass[0];
-  } else {
-    messagePass = null;
-  }
+
   res.render("auth/login", {
     path: "/login",
     pageTitle: "ورود",
-    errorMessage: messageEmail,
-    errorPassword: messagePass,
+    errorMessage: message,
+    successMessage: req.flash("success"),
   });
 };
 
@@ -40,7 +35,7 @@ exports.postLogin = (req, res) => {
           res.redirect("/");
         });
       } else {
-        req.flash("errorPass", "پسورد شما اشتباه است");
+        req.flash("error", "پسورد شما اشتباه است");
         return res.redirect("/login");
       }
     });
@@ -58,7 +53,7 @@ exports.getSignup = (req, res) => {
   res.render("auth/signup", {
     path: "/signup",
     pageTitle: "ثبت نام",
-    isAuthenticated: false,
+    errorMessage: req.flash("error"),
   });
 };
 
@@ -69,8 +64,10 @@ exports.postSignup = (req, res) => {
   const confirmPassword = req.body.confirmPassword;
 
   User.findOne({ email: email })
+
     .then((userDoc) => {
       if (userDoc) {
+        req.flash("error", "ایمیل دیگری با این مشخصات ثبت نام کرده است");
         return res.redirect("/signup");
       }
       return bcrypt.hash(password, 12).then((hashedPassword) => {
@@ -82,7 +79,8 @@ exports.postSignup = (req, res) => {
         return user.save();
       });
     })
-    .then(() => {
+    .then((result) => {
+      req.flash("success", "ثبت نام شما با موفقیت انجام شد میتوانید وارد شوید");
       res.redirect("/login");
       console.log(`user signed up - email : ${email}`);
     })
