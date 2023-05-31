@@ -218,13 +218,18 @@
                           </div>
                           <i class="fa-solid fa-arrows-rotate mr-2"></i>
                           <form action="logout" method="post">
-                            <button type="submit" class="btn p-2"  > 
-                            <i
-                              class="fa-solid fa-right-from-bracket"
-                              type="submit"
-                            ></i></button>
+                            <input
+                              type="hidden"
+                              name="_csrf"
+                              value="<%= csrfToken %>"
+                            />
 
-
+                            <button type="submit" class="btn p-2">
+                              <i
+                                class="fa-solid fa-right-from-bracket"
+                                type="submit"
+                              ></i>
+                            </button>
                           </form>
                         </div>
                       </div>

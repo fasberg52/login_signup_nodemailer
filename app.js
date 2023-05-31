@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const flash = require("connect-flash");
+const csrf = require("csurf");
 const Port = 3000;
 const MONGODB_URI = "mongodb://127.0.0.1:27017/messangerFarawin";
 const app = express();
@@ -14,6 +15,8 @@ const store = new MongoDBStore({
   uri: MONGODB_URI,
   collection: "session",
 });
+
+const csrfProtection = csrf();
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -36,7 +39,7 @@ app.use(
   })
 );
 app.use(flash());
-
+app.use(csrfProtection);
 app.use((req, res, next) => {
   if (!req.session.user) {
     return next();
@@ -50,6 +53,12 @@ app.use((req, res, next) => {
       console.log(err);
     });
 });
+
+app.use((req, res, next) => {
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
+
 app.use(messageRouter);
 app.use(authRouter);
 

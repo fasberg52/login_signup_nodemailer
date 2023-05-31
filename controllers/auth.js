@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/user");
-
+const sendEmail = require("../util/email");
+const crypto = require("crypto");
+const user = require("../models/user");
 exports.getLogin = (req, res) => {
   let message = req.flash("error");
   if (message.length > 0) {
@@ -81,10 +83,67 @@ exports.postSignup = (req, res) => {
     })
     .then((result) => {
       req.flash("success", "ثبت نام شما با موفقیت انجام شد میتوانید وارد شوید");
+      sendEmail({
+        subject: "ثبت نام",
+        text: "ثبت نام شما با موفقیت انجام شد میتوانید وارد شوید",
+        userEmail: email,
+      });
       res.redirect("/login");
       console.log(`user signed up - email : ${email}`);
     })
     .catch((err) => {
       console.log(err);
     });
+};
+
+exports.getReset = (req, res) => {
+  let message = req.flash("error");
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
+  res.render("auth/reset", {
+    path: "/reset",
+    pageTitle: "ریست رمز عبور",
+    errorMessage: message,
+  });
+};
+
+exports.postReset = (req, res) => {
+  crypto.randomBytes(32, (err, buf) => {
+    if (err) {
+      console.log(err);
+      return res.redirect("/reset");
+    }
+    const token = buf.toString("hex");
+    User.findOne({
+      email: req.body.email,
+    })
+      .then((user) => {
+        if (!user) {
+          req.flash(
+            "error",
+            "ایمیلی در سایت با این نام وجود ندارد لطفا ایمیل دیگری وارد کنید"
+          );
+          return res.redirect("/reset");
+        }
+        user.resetToken = token;
+        user.ExpiredDateresetToken = Date.now() + 3600000;
+        return user.save();
+      })
+      .then((result) => {
+        res.redirect("/");
+        sendEmail({
+          userEmail: req.body.email,
+          subject: "بازیابی رمز عبور",
+          html: `<p>درخواست بازیابی رمز عبوز</p>
+                  <p>برای بازیابی رمز عبور <a href="http://localhost:3001/reset/${token}" >این لینک را</a> کلیک کنید </p>
+                  `,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 };

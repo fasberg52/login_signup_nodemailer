@@ -56,18 +56,19 @@
             method="post"
             class="login100-form validate-form"
           >
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+
             <span class="login100-form-title"> فرم عضویت </span>
             <% if(errorMessage) {%>
             <div class="alert alert-danger custom-alert text-center">
               <%= errorMessage %>
             </div>
+            <% } %> <% if(successMessage[0]){ %>
+            <div class="alert alert-success custom-alert text-center">
+              <%= successMessage[0] %>
+            </div>
             <% } %>
-            <% if(successMessage[0]){ %>
-                <div class="alert alert-success custom-alert text-center"><%= successMessage[0] %></div>
-                <% } %>
-           
 
-            
             <div>
               <div class="wrap-input100 validate-input" id="user-email">
                 <input
@@ -128,7 +129,7 @@
 
             <div class="text-center p-t-12">
               <span class="txt1"> فراموشی </span>
-              <a class="txt2" href="#"> نام کاربری / کلمه عبور؟ </a>
+              <a class="txt2" href="/reset"> نام کاربری / کلمه عبور؟ </a>
             </div>
 
             <div class="text-center p-t-136">
