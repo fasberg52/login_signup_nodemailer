@@ -5,7 +5,7 @@ var sendEmail = (option) => {
     service: "gmail",
     auth: {
       user: "taherian.1993@gmail.com",
-      pass: "yexxgwjrjxbitekf", // از پسوورد خودتون استفاده کنید
+      pass: "yexxgwjrjxbitekf", 
     },
   });
   const mailOptions = {
