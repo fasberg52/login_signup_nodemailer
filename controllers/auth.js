@@ -133,12 +133,12 @@ exports.postReset = (req, res) => {
         return user.save();
       })
       .then((result) => {
-        res.redirect("/");
+        res.redirect("/login");
         sendEmail({
           userEmail: req.body.email,
           subject: "بازیابی رمز عبور",
           html: `<p>درخواست بازیابی رمز عبوز</p>
-                  <p>برای بازیابی رمز عبور <a href="http://localhost:3001/reset/${token}" >این لینک را</a> کلیک کنید </p>
+                  <p>برای بازیابی رمز عبور <a href="http://localhost:3000/reset/${token}" >این لینک را</a> کلیک کنید </p>
                   `,
         });
       })
@@ -147,3 +147,130 @@ exports.postReset = (req, res) => {
       });
   });
 };
+exports.getResetPassword = (req, res) => {
+
+  const token = req.params.token;
+  User.findOne({
+      resetToken: token,
+
+  }).then(user => {
+
+      console.log(user);
+
+      let message = req.flash('error');
+      if (message.length > 0) {
+          message = message[0];
+      } else {
+          message = null;
+      }
+      res.render('auth/new-password', {
+          path: '/new-password',
+          pageTitle: 'رمز عبور جدید',
+          errorMessage: message,
+          userId: user._id.toString(),
+          passwordToken: token
+      })
+
+  }).catch(err => {
+      console.log(err);
+  })
+
+
+
+}
+
+
+exports.postNewPassword = (req, res) => {
+  const newPassword = req.body.password;
+  const userId = req.body.userId;
+  const passwordToken = req.body.passwordToken;
+  let resetUser;
+
+  User.findOne({
+      resetToken: passwordToken,
+      ExpiredDateresetToken: {
+          $gt: Date.now()
+      },
+      _id: userId
+
+  }).then(user => {
+      resetUser = user;
+      return bcrypt.hash(newPassword, 12);
+  }).then(hashedPassword => {
+      resetUser.password = hashedPassword;
+      resetUser.resetToken = undefined;
+      resetUser.ExpiredDateresetToken = undefined;
+      return resetUser.save();
+  }).then(result => {
+      console.log(result);
+      res.redirect('/login');
+  }).catch(
+      err => {
+          console.log(err);
+      }
+  );
+
+
+
+
+}
+// exports.getResetPassword = (req, res) => {
+//   const token = req.params.token;
+
+//   User.findOne({
+//     resetToken: token,
+//     ExpiredDateresetToken: {
+//       $gt: Date.now(),
+//     },
+//   })
+//     .then((user) => {
+//       console.log(user);
+
+//       let message = req.flash("error");
+//       if (message.length > 0) {
+//         message = message[0];
+//       } else {
+//         message = null;
+//       }
+//       res.render("auth/new-password", {
+//         path: "/new-password",
+//         pageTitle: "رمز عبور جدید",
+//         errorMessage: message,
+//         userId: user._id.toString(),
+//         passwordToken: token,
+//       });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
+
+// exports.postResetPassword = (req, res) => {
+//   const newPassword = req.body.password;
+//   const userId = req.body.userId;
+//   const passwordToken = req.body.passwordToken;
+//   let resetUser;
+//   User.findOne({
+//     resetToken: passwordToken,
+//     ExpiredDateResetToken: { $gt: Date.now() },
+//     _id: userId,
+//   })
+//     .then((user) => {
+//       resetUser = user;
+//       return bcrypt.hash(newPassword, 12);
+//     })
+//     .then((hashedPassword) => {
+//       resetUser.password = hashedPassword;
+//       resetUser.resetToken = undefined;
+//       resetUser.ExpiredDateResetToken = undefined;
+//       return resetUser.save();
+//     })
+//     .then((result) => {
+//       console.log(result);
+
+//       res.redirect("/login");
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
