@@ -87,22 +87,18 @@
                     <div class="card-header shadow-xl">
                       <div class="row">
                         <div class="col-md-8 d-flex justify-content-start">
-                       
-                                <div class="media align-items-center">
-                                  <span class="avatar avatar-sm">
-                                    <img
-                                      alt="Image placeholder"
-                                      src="./assets/image/img_avatar.png"
-                                    />
-                                  </span>
-                                  <% if (user) { %>
-                                  <p class="mb-0 mr-2"><%= user.name %></p>
+                          <div class="media align-items-center">
+                            <span class="avatar avatar-sm">
+                              <img
+                                alt="Image placeholder"
+                                src="./assets/image/img_avatar.png"
+                              />
+                            </span>
+                            <% if (user) { %>
+                            <p class="mb-0 mr-2"><%= user.name %></p>
 
-                                  <% } %>
-                                </div>
-                              
-                          
-                          
+                            <% } %>
+                          </div>
                         </div>
                         <div
                           class="col-md-4 d-flex align-items-center justify-content-end"
@@ -144,7 +140,7 @@
                                       <label
                                         for="recipient-name"
                                         class="col-form-label"
-                                        >موبایل</label
+                                        >ایمیل</label
                                       >
                                       <input
                                         type="text"
@@ -214,11 +210,17 @@
                                   class="far fa-clock mr-1"
                                   aria-hidden="true"
                                 ></i>
-                                <small>12</small>
+                                <small class="mr-1"
+                                  ><%=
+                                  String(message.created_at.getHours()).padStart(2,
+                                  '0') %>:<%=
+                                  String(message.created_at.getMinutes()).padStart(2,
+                                  '0') %></small
+                                >
                               </div>
                             </div>
                           </div>
-                        </div>
+                        </div>  
                       </div>
 
                       <% }) %>

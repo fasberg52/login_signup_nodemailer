@@ -10,7 +10,6 @@ exports.getChatRoom = (req, res) => {
         pageTitle: "message user",
         path: "/",
         user: req.session.user,
- 
       });
     })
     .catch((error) => {
@@ -25,7 +24,6 @@ exports.getMessage = (req, res) => {
         pageTitle: "Message User",
         path: "/",
         isAuthenticated: req.session.isLoggedIn,
-       
       });
     })
     .catch((error) => {
@@ -39,7 +37,7 @@ exports.postMessage = (req, res) => {
 
   const messages = new Message({
     message: message,
-    created_at:
+    created_at: message.created_at,
     isAuthenticated: req.session.isLoggedIn,
   });
   messages.save().then((result) => {
