@@ -21,7 +21,7 @@ const csrfProtection = csrf();
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-const messageRouter = require("./router/message");
+const chatroomRouter = require("./router/chatroom");
 const authRouter = require("./router/auth");
 app.use(
   bodyParser.urlencoded({
@@ -59,11 +59,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(messageRouter);
+app.use(chatroomRouter);
 app.use(authRouter);
 
 mongoose
   .connect(MONGODB_URI)
+  .then(connection => {
+    console.log(`connecting to mongodb ${MONGODB_URI}`)
+  })
   .then((result) => {
     app.listen(Port, () => {
       console.log(`app running on ${Port}`);

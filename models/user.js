@@ -4,23 +4,23 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   email: {
-    type: "String",
+    type: String,
     required: true,
     unique: true,
     minlenght: 1,
     lowercase: true,
   },
   name: {
-    type: "String",
+    type: String,
     required: true,
     minlength: 3,
     maxlength: 255,
   },
   password: {
-    type: "String",
+    type: String,
     required: true,
   },
-  resetToken: "String",
+  resetToken: String,
   ExpiredDateresetToken: Date,
 });
 

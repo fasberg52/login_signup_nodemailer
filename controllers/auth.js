@@ -4,6 +4,7 @@ const sendEmail = require("../util/email");
 const crypto = require("crypto");
 
 exports.getLogin = (req, res) => {
+
   let message = req.flash("error");
 
   if (message.length > 0) {
@@ -17,6 +18,7 @@ exports.getLogin = (req, res) => {
     pageTitle: "ورود",
     errorMessage: message,
     successMessage: req.flash("success"),
+  
   });
 };
 
@@ -32,7 +34,8 @@ exports.postLogin = (req, res) => {
       req.flash("error", "ایمیل شما اشتباه است!");
       return res.redirect("/login");
     }
-    bcrypt.compare(password, user.password).then((isMatch) => {
+    bcrypt.compare(password, user.password)
+    .then((isMatch) => {
       if (isMatch) {
         req.session.isLoggedIn = true;
         req.session.user = user;
