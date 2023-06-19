@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
-const Sechma = mongoose.Schema;
+const Schema  = mongoose.Schema;
 
-const messageSchema = new Sechma({
+const messageSchema = new Schema ({
   message: {
     type: String,
     required: true,
@@ -16,7 +16,10 @@ const messageSchema = new Sechma({
   //   id: mongoose.Scchma.Types.ObjectId,
   //   ref: "User",
   // },
-  created_at: Date,
+  created_at:  {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Message = mongoose.model("Message", messageSchema);

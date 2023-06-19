@@ -169,3 +169,6 @@
 .custom-form-contorl{
   border-radius:8px;
 }
+.custom-input-group-text{
+  padding: 0!important;
+}

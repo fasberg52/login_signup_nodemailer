@@ -87,18 +87,7 @@
                     <div class="card-header shadow-xl">
                       <div class="row">
                         <div class="col-md-8 d-flex justify-content-start">
-                          <ul
-                            class="navbar-nav align-items-center ml-auto ml-md-0"
-                          >
-                            <li class="nav-item dropdown">
-                              <a
-                                class="nav-link pr-0"
-                                href="#"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                              >
+                       
                                 <div class="media align-items-center">
                                   <span class="avatar avatar-sm">
                                     <img
@@ -106,38 +95,14 @@
                                       src="./assets/image/img_avatar.png"
                                     />
                                   </span>
+                                  <% if (user) { %>
+                                  <p class="mb-0 mr-2"><%= user.name %></p>
 
-                                  <p class="mb-0 mr-2">محمدرضا</p>
+                                  <% } %>
                                 </div>
-                              </a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <div class="dropdown-header noti-title">
-                                  <h6 class="text-overflow m-0">Welcome!</h6>
-                                </div>
-                                <a href="#!" class="dropdown-item">
-                                  <i class="fa fa-user"></i>
-                                  <span>My profile</span>
-                                </a>
-                                <a href="#!" class="dropdown-item">
-                                  <i class="fa fa-tools"></i>
-                                  <span>Settings</span>
-                                </a>
-                                <a href="#!" class="dropdown-item">
-                                  <i class="far fa-calendar"></i>
-                                  <span>Activity</span>
-                                </a>
-                                <a href="#!" class="dropdown-item">
-                                  <i class="fa fa-phone"></i>
-                                  <span>پشتیبانی</span>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#!" class="dropdown-item">
-                                  <i class="fa fa -sign-out-alt"></i>
-                                  <span>خارج شدن</span>
-                                </a>
-                              </div>
-                            </li>
-                          </ul>
+                              
+                          
+                          
                         </div>
                         <div
                           class="col-md-4 d-flex align-items-center justify-content-end"
@@ -234,9 +199,9 @@
                         </div>
                       </div>
                     </div>
-
+                    <% if (messages.length>0) { %>
                     <div class="card-body overflow-auto overflow-x-hidden">
-                    
+                      <% messages.forEach((message) => { %>
                       <div class="row justify-content-start mb-4">
                         <div class="col-auto">
                           <div class="card">
@@ -249,19 +214,19 @@
                                   class="far fa-clock mr-1"
                                   aria-hidden="true"
                                 ></i>
-                                <small><%= message.created_at %></small>
+                                <small>12</small>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
+
+                      <% }) %>
                       <div class="row justify-content-end text-right mb-4">
                         <div class="col-auto">
                           <div class="card bg-gradient-primary text-white">
                             <div class="card-body p-2">
-                              <p class="mb-1">
-                                ها یره نوشتم برنامه خوبی از آب در آمد!<br />
-                              </p>
+                              <p class="mb-1">پیام کاربر<br /></p>
                               <div
                                 class="d-flex align-items-center justify-content-end text-sm opacity-6"
                               >
@@ -269,29 +234,24 @@
                                   class="fa fa-check-double mr-1 text-xs"
                                   aria-hidden="true"
                                 ></i>
-                                <small>15:42</small>
+                                <small>4:42pm</small>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="row mt-4">
-                        <div class="col-md-12 text-center">
-                          <span class="badge text-dark">چهارشنبه, 13:27</span>
-                        </div>
-                      </div>
-
-                      <div class="row justify-content-start">
-                        <div class="col-auto">
-                          <div class="card">
-                            <div class="card-body p-2">
-                              <p class="mb-0 text-sm">محمد در حال تایپ...</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
-                 
+                    <% } else { %>
+                    <div class="text-center">
+                      <img
+                        src="/assets/image/no-chat.jpg"
+                        alt="عکس نامه"
+                        width="180"
+                      />
+                      <h3 class="text-center">پیامی وجود ندارد</h3>
+                    </div>
+
+                    <% } %>
                     <div class="card-footer d-block">
                       <form class="align-items-center" action="/" method="post">
                         <input
@@ -308,7 +268,9 @@
                             aria-label="Amount (to the nearest dollar)"
                           />
                           <div class="input-group-append custom-hover">
-                            <span class="input-group-text">
+                            <span
+                              class="input-group-text custom-input-group-text"
+                            >
                               <button type="submit" class="btn">
                                 <i class="fa fa-paper-plane"></i>
                               </button>
@@ -330,7 +292,7 @@
                         <a href="javascript:;" class="d-block p-2">
                           <img
                             alt="Image"
-                            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxzZWFyY2h8Njh8fHBvcnRyYWl0fGVufDB8MnwwfHw%3D&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=60"
+                            src="assets/image/img_avatar.png"
                             class="avatar avatar-lg shadow mb-0"
                           />
                         </a>
@@ -338,30 +300,40 @@
                           <div
                             class="justify-content-between align-items-center"
                           >
-                            <h3 class="mb-0 mt-1">علی اسلامی</h3>
+                            <% if (user) { %>
 
+                            <h3 class="mb-0 mt-1"><%= user.name %></h3>
+                            <% } %>
                             <a href="" class="text-sm">مشاهده پروفایل</a>
                           </div>
                         </div>
                       </div>
                       <hr class="my-3" />
                       <div class="mx-3">
-                        <h4 class="mb-0 text-right">بیو:</h4>
-                        <p
-                          class="text-sm text-muted font-weight-normal text-right"
-                        >
-                          برنامه نویس
-                        </p>
+                        <div class="d-flex align-items-center">
+                          <i class="fa-solid fa-user ml-3"></i>
+                          <div class="ml-3">
+                            <h4 class="mb-0 text-right">بیو:</h4>
+                            <p
+                              class="text-sm text-muted font-weight-normal text-right"
+                            >
+                              برنامه نویس
+                            </p>
+                          </div>
+                        </div>
                       </div>
                       <hr class="my-3" />
                       <div class="mx-3">
                         <div class="d-flex align-items-center">
-                          <i class="fa fa-phone opacity-7 ml-1"></i>
+                          <i class="fa-solid fa-at ml-3"></i>
                           <div class="ml-3">
-                            <h5 class="mb-0 text-right">شماره همراه</h5>
+                            <h5 class="mb-0 text-right">ایمیل شما</h5>
+                            <% if (user) { %>
                             <span class="text-sm text-primary"
-                              >0723922012
+                              ><%= user.email %>
                             </span>
+
+                            <% } %>
                           </div>
                         </div>
                       </div>

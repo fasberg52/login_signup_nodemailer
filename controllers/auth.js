@@ -213,3 +213,19 @@ exports.postNewPassword = (req, res) => {
       console.log(err);
     });
 };
+
+
+exports.getUser = (req, res) => {
+  User.findOne({ email: req.body.email })
+    .then((user) => {
+      if (!user) {
+        console.log("User not found");
+      } else {
+        req.session.user = user;
+        res.redirect("/chatroom");
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
