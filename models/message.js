@@ -1,22 +1,29 @@
 const mongoose = require("mongoose");
 
-const Schema  = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-const messageSchema = new Schema ({
+const messageSchema = new Schema({
+  chatRoom: {
+    type: mongoose.Types.ObjectId,
+    ref: "ChatRoom",
+    
+  },
   message: {
     type: String,
-    required: true,
+    
   },
 
-  // sender: {
-  //   id: mongoose.Scchma.Types.ObjectId,
-  //   ref: "User",
-  // },
-  // resiver: {
-  //   id: mongoose.Scchma.Types.ObjectId,
-  //   ref: "User",
-  // },
-  created_at:  {
+  sender: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  receiver: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+    
+  },
+  created_at: {
     type: Date,
     default: Date.now,
   },
